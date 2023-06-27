@@ -8,5 +8,4 @@ n = int(input("학생 수 입력 : "))
 data = list(map(int, input("성적 입력 : ").split())) # 입력된 문자열을 공백을 기준으로 분리후 정수형으로 변환, 리스트화
 
 data.sort(reverse = True)
-
 print(data)
