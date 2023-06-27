@@ -14,3 +14,17 @@ print(array2)
 
 array3 = [a**2 for a in range(1,10)]
 print(array3)
+
+# 예시 4 : N x M 크기의 2차원 리스트를 한번에 초기화
+
+N,M = 3, 4
+array4 = [[0]*M for _ in range(N)]
+print(array4)
+
+# remove_list에 포함되지 않은 값 만을 저장
+
+array5 = [1,2,3,4,5]
+remove_list = [3,5]
+
+array5 = [i for i in array5 if i not in remove_list]
+print(array5)
