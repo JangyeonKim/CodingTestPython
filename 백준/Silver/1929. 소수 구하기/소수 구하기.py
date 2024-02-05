@@ -1,17 +1,23 @@
 import sys
 input = sys.stdin.readline
 
-def isPrime(num):
-    if num==1:
-        return False
-    else:
-        for i in range(2, int(num**0.5)+1):
-            if num%i == 0:
-                return False
-        return True
+m, n = map(int, input().split())
 
-M, N = map(int, input().split())
+def get_primes(num) :
+    isPrime = [False, False] + [True] * (n-1) # 0, 1 은 소수 아님. 2부터 시작
+    primes = []
+    
+    for i in range(2, n+1) :
+        if isPrime[i] :
+            primes.append(i)
+            
+            for j in range(2*i, n+1, i) : # 소수(i)의 배수 제거
+                isPrime[j] = False
+                
+    return primes
 
-for i in range(M, N+1):
-    if isPrime(i):
-        print(i)
+prime = get_primes(n)
+
+for p in prime :
+    if p >= m :
+        print(p)
