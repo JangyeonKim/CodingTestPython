@@ -1,24 +1,34 @@
 # 번호 하나 당 2개(+,-)로 2^len(numbers) 경우의 수 존재
-from collections import deque
+
+# 1. bfs
+def bfs_solution(numbers, target):
+    ans_list = [0]
+    
+    for i in range(len(numbers)):
+        temp = []
+        for a in ans_list :
+            temp.append(a+numbers[i])
+            temp.append(a-numbers[i])
+        ans_list = temp
+            
+    return ans_list.count(target)
+
+# 2. dfs
+def dfs(numbers, target, idx, value) :
+    global cnt
+    
+    if idx == len(numbers) and value == target :
+        cnt+=1
+        return
+    elif idx == len(numbers) :
+        return
+    
+    dfs(numbers, target, idx+1, value + numbers[idx])
+    dfs(numbers, target, idx+1, value - numbers[idx])
 
 def solution(numbers, target):
-    answer = 0
-    queue = deque([numbers[0], -numbers[0]])
-
-    for i in range(1, len(numbers)) :
-        middle = []
-        while queue :
-            middle.append(queue.popleft())
-        
-        for m in middle :
-            plus = m + numbers[i]
-            minus = m - numbers[i]
-        
-            queue.append(plus)
-            queue.append(minus)
+    global cnt
+    cnt = 0
     
-    for q in queue :
-        if q == target :
-            answer += 1
-    # print(queue)
-    return answer
+    dfs(numbers, target, 0, 0)
+    return cnt
