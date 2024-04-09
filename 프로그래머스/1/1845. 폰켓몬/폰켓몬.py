@@ -1,9 +1,8 @@
 def solution(nums):
-    max_len = len(nums) / 2
-    set_nums = set(nums)
+    set_arr = len(set(nums))
+    half_len = len(nums) / 2
     
-    if len(set_nums) >= max_len :
-        return max_len
+    if set_arr >= half_len :
+        return half_len
     else :
-        return len(set_nums)
-    
+        return set_arr
