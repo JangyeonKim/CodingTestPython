@@ -1,32 +1,20 @@
-def transformation(x) :
-    temp_len = len(x)
-    
-    no_zero_x = ''
-    for xx in x :
-        if xx == "1" :
-            no_zero_x += xx
-    
-    zero_cnt = temp_len - len(no_zero_x)
-
-    bin_x = str(bin(len(no_zero_x)))[2:]
-    
-    return bin_x, zero_cnt
-
-def solution(s) :
-    tr_result, temp_zero_cnt = transformation(s)
-    zero_cnt = temp_zero_cnt
-
-    cnt=1
-    
-    if tr_result == "1" :
-        return [cnt, zero_cnt]
-    
+def solution(s):
+    cnt_zero = 0
+    cnt_transform = 0
+    cnt = 0
     while True :
-        tr_result, temp_zero_cnt = transformation(tr_result)
-        cnt+=1
-        zero_cnt += temp_zero_cnt
+        cnt_zero += s.count('0')
+        s = s.replace('0', "")
         
-        if tr_result == "1" :
+        length = len(s)
+        binary = bin(length)[2:]
+
+        s = str(binary)
+        cnt_transform += 1
+
+        if s == "1" :
             break
+        
+    return [cnt_transform, cnt_zero]
+        
     
-    return [cnt, zero_cnt]
