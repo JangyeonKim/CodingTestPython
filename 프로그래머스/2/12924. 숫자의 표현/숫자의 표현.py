@@ -1,14 +1,17 @@
 def solution(n):
-    answer = 1
+    answer = 0
     
-    for i in range(1, n) :
-        nn = i
-        for j in range(i+1, n+1) :
-            nn += j
-            if nn == n :
-                answer += 1
-                break
-            if nn > n :
-                break
+    half = n//2 + 1
     
-    return answer
+    for i in range(1, half) :
+        temp = 0
+        
+        j = i
+        while temp < n :
+            temp += j
+            j += 1
+        
+        if temp == n :
+            answer += 1
+    
+    return answer+1
