@@ -1,8 +1,8 @@
 def solution(n):
-    answer = n
-    cnt_1 = str(bin(n)).count("1")
     
+    temp = n + 1
     while True :
-        answer += 1
-        if str(bin(answer)).count("1") == cnt_1 :
-            return answer
+        if str(bin(n)).count('1') == str(bin(temp)).count('1') :
+            return temp
+        else :
+            temp += 1
