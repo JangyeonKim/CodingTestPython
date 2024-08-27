@@ -1,4 +1,7 @@
 def solution(s):
     num_list = list(map(int, s.split()))
+    num_list.sort()
     
-    return f"{min(num_list)} {max(num_list)}"
+    answer = f"{num_list[0]} {num_list[-1]}"
+    
+    return answer
