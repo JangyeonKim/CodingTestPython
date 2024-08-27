@@ -1,5 +1,15 @@
 def solution(s):
-    s = s.split(" ")
-    for i in range(len(s)):
-        s[i] = s[i][:1].upper() + s[i][1:].lower()
-    return ' '.join(s)
+
+    S = s.lower()
+    H = S.split(' ')
+    STRING = []
+
+    for i in H:
+        if i:
+            Z = i[0].upper() + i[1:]
+        else:
+            Z = i
+        STRING.append(Z)
+    last = ' '.join(STRING)
+
+    return last
