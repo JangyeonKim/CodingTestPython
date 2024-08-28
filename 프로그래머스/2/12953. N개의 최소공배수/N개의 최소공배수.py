@@ -1,21 +1,15 @@
-def gcd(a,b) :
-    mod_a = a%b
-    
-    if mod_a == 0 :
+def GCD(a, b) :
+    if a % b == 0 :
         return b
     else :
-        return gcd(b, mod_a)
+        return GCD(b, a%b)
 
-def LCM(a,b,g) :
-    return int(a*b/g)
-    
 def solution(arr):
-    arr.sort(reverse=True)
-    arr1, arr2 = arr[:2], arr[2:]
-    init_lcm = LCM(arr1[0], arr1[1], gcd(arr1[0],arr1[1]))
-
-    lcm = init_lcm
-    for i in arr2 :
-        lcm = LCM(lcm, i, gcd(lcm,i))
+    arr.sort()
     
-    return lcm
+    for i in range(1, len(arr)) :
+        gcd = GCD(arr[i], arr[i-1])
+        lcm = arr[i] * arr[i-1] / gcd
+        arr[i] = lcm
+        
+    return arr[-1]
