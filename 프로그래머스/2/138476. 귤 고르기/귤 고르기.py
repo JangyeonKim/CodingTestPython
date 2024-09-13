@@ -1,21 +1,21 @@
 def solution(k, tangerine):
-    ans_dict = {}
+    answer = 0
+    
+    t_dict = {}
+    
     for t in tangerine :
-        if t not in ans_dict.keys() :
-            ans_dict[t] = 1
+        if t not in t_dict.keys() :
+            t_dict[t] = 1
         else :
-            ans_dict[t] += 1
+            t_dict[t] += 1
+            
+    # print(t_dict)
+    kind = sorted(list(t_dict.values()), reverse=True)
+    # print(kind)
     
-    ans_list = sorted([x for _, x in ans_dict.items()])
-    
-    result = 0
-    
-    while True :
-        a = ans_list.pop()
-        k -= a
-        result += 1
+    for kk in kind :
+        k -= kk
+        answer += 1
         
         if k <= 0 :
-            break
-            
-    return result
+            return answer
