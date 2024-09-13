@@ -1,15 +1,19 @@
-def GCD(a, b) :
+def gcd(a, b) :
     if a % b == 0 :
         return b
     else :
-        return GCD(b, a%b)
+        return gcd(b, a%b)
+    
+def LCM(a,b) : 
+    return a * b / gcd(a, b)
 
 def solution(arr):
-    arr.sort()
+    lcm = 0
     
-    for i in range(1, len(arr)) :
-        gcd = GCD(arr[i], arr[i-1])
-        lcm = arr[i] * arr[i-1] / gcd
-        arr[i] = lcm
-        
-    return arr[-1]
+    arr.sort(reverse=True)
+    
+    for i in range(len(arr)-1) :
+        lcm = LCM(arr[i], arr[i+1])
+        arr[i+1] = lcm
+    
+    return lcm
