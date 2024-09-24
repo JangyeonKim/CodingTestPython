@@ -1,28 +1,22 @@
 from itertools import permutations
 
-def count(k, dg) :
-    global answer
-    cnt = 0
-    for d in dg :
-        if d[0] <= k :
-            k -= d[1]
-            cnt +=1
-        else :
-            break
-    
-    if cnt > answer :
-        answer = cnt
-
 def solution(k, dungeons):
-    global answer
-    answer = -1
+
+    ans_list = []
+    dd = list(permutations(dungeons))
     
-    dungeon = [x for x in dungeons if x[0] <= k]
+    for d in dd :
+        ans = 0
+        power = k
+        
+        for need, consume in d :
+            if need > power :
+                break
+            else :
+                power -= consume
+                ans += 1
+        
+        ans_list.append(ans)
+        
     
-    d_list = list(permutations(dungeon, len(dungeon)))
-    # print(d_list)
-    
-    for dg in d_list :
-        count(k, dg)
-    
-    return answer
+    return max(ans_list)
