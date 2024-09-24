@@ -3,24 +3,20 @@ from collections import deque
 def solution(progresses, speeds):
     answer = []
     
-    progresses = deque(progresses)
-    speeds = deque(speeds)
+    pro = deque(progresses)
+    spd = deque(speeds)
     
-    while progresses :
-        while True :
-            for i in range(len(progresses)) :
-                progresses[i] += speeds[i]
+    while pro : 
+        ans = 0
+        while pro[0] < 100 :
+            for i in range(len(pro)) :
+                pro[i] += spd[i]
             
-            if progresses[0] >= 100 :
-                break
+        while pro and pro[0] >= 100 :
+            pro.popleft()
+            spd.popleft()
+            ans += 1
             
-        cnt = 0
-        while progresses :
-            if progresses[0] < 100 :
-                break
-            else :
-                progresses.popleft()
-                speeds.popleft()
-                cnt+=1
-        answer.append(cnt)
+        answer.append(ans)
+            
     return answer
