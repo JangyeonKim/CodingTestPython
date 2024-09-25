@@ -1,30 +1,19 @@
-def solution(topping):
-    answer =0
-    
-    old_dict = {}
-    for t in topping :
-        if t not in old_dict.keys() :
-            old_dict[t] = 1
-        else :
-            old_dict[t] += 1
-    
-    young_dict = {}
-    for i in range(len(topping)) :
-        t = topping[i]
-        
-        if t not in young_dict.keys() :
-            young_dict[t] = 1
-        else :
-            young_dict[t] += 1
+from collections import Counter
 
-        old_dict[t] -= 1
-        if old_dict[t] == 0 :
-            old_dict.pop(t)
-        
-        if len(old_dict.keys()) == len(young_dict.keys()) :
-            answer += 1
-        if len(old_dict.keys()) < len(young_dict.keys()) :
-            break
+def solution(topping):
+    answer = 0
     
+    roll = Counter(topping)
+    cut = set()
+    
+    for t in topping :
+        roll[t] -= 1
+        if roll[t] == 0 :
+            del(roll[t])
+        
+        cut.add(t)
+    
+        if len(roll) == len(cut) :
+            answer += 1
     
     return answer
