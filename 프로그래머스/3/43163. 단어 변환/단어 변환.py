@@ -1,25 +1,31 @@
 from collections import deque
 
+def count_diff(word1, word2) :
+    cnt = 0
+    for w1, w2 in zip(word1, word2) :
+        if w1 != w2 :
+            cnt += 1
+            
+    return True if cnt==1 else False
+
+def bfs(begin, target, words, answer) :
+    queue = deque([[begin, answer]])
+    check = []
+    
+    while queue :
+        word, answer = queue.popleft()
+        if word == target :
+            return answer
+        for w in words :
+            if w not in check and count_diff(word, w) :
+                queue.append([w, answer+1])
+                check.append(w)
+    return 0
+            
 def solution(begin, target, words):
-    answer = 0
-    q = deque()
-    q.append([begin, 0])    # [단어, 깊이]
-    V = [ 0 ] * (len(words))    # 방문 노드 여부 확인 리스트
-    while q:
-        word, cnt = q.popleft()
-        if word == target:
-            answer = cnt
-            break        
-        for i in range(len(words)):
-            temp_cnt = 0
-            if not V[i]:    # 만약 확인 안 한 단어라면
-                # 그 단어가 words 속 단어와 다를 때 한 자씩 비교해서 더하기
-                for j in range(len(word)):
-                    if word[j] != words[i][j]:
-                        temp_cnt += 1
-
-                if temp_cnt == 1:   # 만약 다른 글자 개수가 1개라면
-                    q.append([words[i], cnt+1])
-                    V[i] = 1
-
-    return answer
+    if target not in words :
+        return 0
+    
+    answer = bfs(begin, target, words, 0)
+    
+    return answer 
