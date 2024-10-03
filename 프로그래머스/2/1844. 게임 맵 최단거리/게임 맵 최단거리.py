@@ -1,34 +1,30 @@
 from collections import deque
 
-def bfs(x, y, maps) :
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
+def bfs(start, maps) :
+    x, y = start.popleft()
     
-    queue = deque()
-    queue.append((x, y))
+    move_x = [-1, 1, 0, 0]
+    move_y = [0, 0, -1, 1]
     
-    while queue :
-        x, y = queue.popleft()
+    for i in range(4) :
+        x_ = x + move_x[i]
+        y_ = y + move_y[i]
         
-        for i in range(4) :
-            xx = x + dx[i]
-            yy = y + dy[i]
-            
-            if xx < 0 or xx >= len(maps) or yy < 0 or yy >= len(maps[0]) :
-                continue
-            if maps[xx][yy] == 0 :
-                continue
-            if maps[xx][yy] == 1 :
-                maps[xx][yy] = maps[x][y] + 1
-                queue.append((xx,yy))
+        if x_ < 0 or y_ < 0 or x_ >= len(maps) or y_ >= len(maps[0]) :
+            pass
+        else :
+            if maps[x_][y_] == 1 :
+                maps[x_][y_] = maps[x][y] + 1
+                start.append([x_, y_])
     
 
-# bfs를 이용하여, map의 최단경로를 갱신하며 진행
-def solution(maps) :
-    bfs(0,0, maps)
+def solution(maps):
+    start = deque([[0, 0]])
     
-    answer = maps[-1][-1]
-    if answer == 1 :
+    while start :
+        bfs(start, maps)
+    
+    if maps[-1][-1] == 1 :
         return -1
     else :
-        return answer
+        return maps[-1][-1]
