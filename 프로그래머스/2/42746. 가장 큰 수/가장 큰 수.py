@@ -1,11 +1,10 @@
 def solution(numbers):
-    str_numbers = list(map(str, numbers))
+    answer = ''
     
-    str_numbers.sort(reverse = True, key = lambda x : x*3)
+    numbers.sort(key = lambda x : str(x) * 3, reverse=True)
     
-    ans = '' 
+    for n in numbers :
+        answer += str(n)
     
-    for s in str_numbers :
-        ans += s
     
-    return str(int(ans))
+    return str(int(answer))
