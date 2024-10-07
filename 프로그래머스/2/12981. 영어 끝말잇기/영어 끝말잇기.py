@@ -1,22 +1,24 @@
 from collections import deque
 
-# [사람 번호, 몇 번째 차례]
 def solution(n, words):
-    stack = []
-    cnt = 0
+    answer = []
     
     queue = deque(words)
+    spoken = []
+    
+    cnt_people, cnt_round = 0, 1
     
     while queue :
         q = queue.popleft()
-        cnt += 1
-        if stack and (q in stack or stack[-1][-1] != q[0]) :
-            if cnt % n == 0 :
-                return [n, cnt//n]
-            else :
-                return [cnt%n, cnt//n+1]
+        cnt_people +=1
+        if cnt_people > n :
+            cnt_people = 1
+            cnt_round += 1
         
-        stack.append(q)
-        print(stack, cnt)
+        if (spoken and not spoken[-1].endswith(q[0])) or (q in spoken) :
+            return [cnt_people, cnt_round]
+        
+        spoken.append(q)
     
+
     return [0, 0]
