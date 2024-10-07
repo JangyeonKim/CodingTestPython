@@ -1,20 +1,17 @@
 def solution(s):
-    cnt_zero = 0
-    cnt_transform = 0
-    cnt = 0
-    while True :
-        cnt_zero += s.count('0')
-        s = s.replace('0', "")
-        
-        length = len(s)
-        binary = bin(length)[2:]
-
-        s = str(binary)
-        cnt_transform += 1
-
-        if s == "1" :
-            break
-        
-    return [cnt_transform, cnt_zero]
-        
+    remove_zero, cnt = 0, 0
     
+    
+    while s != "1" :
+        lens_bef = len(s)
+        # print(f"before : {s}")
+        s = s.replace("0", "")
+        # print(f"after : {s}")
+        lens_aft = len(s)
+        ans = lens_bef - lens_aft
+        remove_zero += ans
+        s = str(bin(lens_aft))[2:]
+        # print(f"bin : {s}")
+        cnt += 1
+    
+    return [cnt, remove_zero]
