@@ -1,14 +1,14 @@
 def solution(elements):
-    sum_arr = elements + [sum(elements)]
-    # print(sum_arr)
+    answer = 0
+    part_sum = set(elements)
+    part_sum.add(sum(elements))
+    # print(part_sum)
     
-    for i in range(2, len(elements)) :
-        arr = elements + elements[:i-1]
-        # print(arr)
-        
+    for i in range(1, len(elements)) :
+        temp_arr = elements + elements[:i]
+        # print(temp_arr)
         for j in range(len(elements)) :
-            sum_arr.append(sum(arr[j:j+i]))
-            
-    answer = len(set(sum_arr))
+            temp_sum = sum(temp_arr[j:j+i+1])
+            part_sum.add(temp_sum)
     
-    return answer
+    return len(part_sum)
