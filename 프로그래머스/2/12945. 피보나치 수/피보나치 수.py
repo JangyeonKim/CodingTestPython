@@ -1,8 +1,10 @@
 def solution(n):
-    pibo = [0, 1] + [0] * (n-1)
+    answer = 0
+    fibo = [0, 1] + [0]*(n-1)
     
-    for i in range(2, len(pibo)) :
-        pibo[i] = pibo[i-1] + pibo[i-2]
+    for i in range(2, len(fibo)) :
+        fibo[i] = fibo[i-1]+fibo[i-2]
     
-    answer = pibo[-1] % 1234567
-    return answer 
+    # print(fibo)
+    
+    return fibo[-1] % 1234567
