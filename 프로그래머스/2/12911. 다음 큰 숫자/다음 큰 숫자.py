@@ -1,8 +1,12 @@
 def solution(n):
+    answer = 0
+    strn = str(bin(n))[2:]
+    num1 = strn.count("1")
     
-    temp = n + 1
     while True :
-        if str(bin(n)).count('1') == str(bin(temp)).count('1') :
-            return temp
-        else :
-            temp += 1
+        n += 1
+        strnp = str(bin(n))[2:]
+        num2 = strnp.count("1")
+
+        if num1 == num2 :
+            return n
