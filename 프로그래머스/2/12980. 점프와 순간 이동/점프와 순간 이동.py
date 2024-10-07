@@ -1,13 +1,11 @@
-def solution(n): 
+def solution(n):
     ans = 1
     
     while n != 1 :
-        if n % 2 == 1 :
-            n -= 1
-            ans += 1
-        else :
+        if n%2 == 0 :
             n /= 2
-    
-    
+        else :
+            n -=1
+            ans += 1
+
     return ans
-        
