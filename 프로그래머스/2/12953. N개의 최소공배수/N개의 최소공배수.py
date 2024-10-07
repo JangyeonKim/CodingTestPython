@@ -1,19 +1,28 @@
 def gcd(a, b) :
+    A = max([a, b])
+    B = min([a, b])
+    
+    a = A
+    b = B
+    
     if a % b == 0 :
         return b
     else :
         return gcd(b, a%b)
-    
-def LCM(a,b) : 
-    return a * b / gcd(a, b)
 
 def solution(arr):
-    lcm = 0
+    answer = 0
+    arr.sort(reverse = True)
     
-    arr.sort(reverse=True)
+    a = arr.pop(0)
+    b = arr.pop(0)
     
-    for i in range(len(arr)-1) :
-        lcm = LCM(arr[i], arr[i+1])
-        arr[i+1] = lcm
+    GCD  = gcd(a,b)
+    LCM = a * b / GCD
     
-    return lcm
+    for a in arr :
+        GCD = gcd(a, LCM)
+        LCM = a * LCM / GCD
+    
+    
+    return LCM
