@@ -1,9 +1,16 @@
+from collections import deque
+
 def solution(s):
-    stack = []
-    for i in range(len(s)) :
-        if stack and stack[-1] == s[i] :
-            stack.pop()
-        else :
-            stack.append(s[i])
     
-    return 0 if stack else 1
+    queue = deque(s)
+    stack = []
+    
+    while queue :
+        while stack and queue and stack[-1] == queue[0] :
+            stack.pop()
+            queue.popleft()
+        
+        if queue :
+            stack.append(queue.popleft())
+    
+    return 1 if not stack else 0
