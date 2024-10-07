@@ -1,21 +1,18 @@
+from collections import Counter
+
 def solution(k, tangerine):
     answer = 0
     
-    t_dict = {}
+    t_dict = Counter(tangerine)
     
-    for t in tangerine :
-        if t not in t_dict.keys() :
-            t_dict[t] = 1
-        else :
-            t_dict[t] += 1
-            
-    # print(t_dict)
-    kind = sorted(list(t_dict.values()), reverse=True)
-    # print(kind)
+    t_list = [x for x in t_dict.values()]
+    t_list.sort()
     
-    for kk in kind :
-        k -= kk
-        answer += 1
+    while t_list :
+        t = t_list.pop()
         
+        k -= t
+        answer += 1
         if k <= 0 :
             return answer
+    return answer
