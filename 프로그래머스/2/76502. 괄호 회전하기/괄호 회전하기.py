@@ -1,27 +1,32 @@
-def isCorrect(arr) : # [](){}
+from collections import deque
+
+def isCorrect(arr) :
+    queue = deque(arr)
     stack = []
     
-    for a in arr :
-        if stack :
-            if stack[-1] == '[' and a == ']' :
-                stack.pop()
-            elif stack[-1] == '{' and a == '}' :
-                stack.pop()
-            elif stack[-1] == '(' and a == ')' :
-                stack.pop()
-            else :
-                stack.append(a)
-        else :
-            stack.append(a)
+    map_dict = {
+        "]" : "[",
+        ")" : "(",
+        "}" : "{"
+    }
     
+    while queue :
+        q = queue.popleft()
+        if stack and q in map_dict.keys() and stack[-1] == map_dict[q] :
+            stack.pop()
+        else :
+            stack.append(q)
     return True if not stack else False
     
+
 def solution(s):
     answer = 0
+    lens = len(s)
+    s *= 2
     
-    for i in range(len(s)) :
-        temp = s[i:] + s[:i]
-        if isCorrect(temp) :
+    for i in range(lens) :
+        circular = s[i:i+lens]
+        if isCorrect(circular) :
             answer += 1
     
     return answer
