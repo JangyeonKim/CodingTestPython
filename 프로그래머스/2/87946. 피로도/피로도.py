@@ -1,22 +1,21 @@
 from itertools import permutations
 
-def solution(k, dungeons):
+def Explore(k, arr) :
+    answer = 0
+    for require, cost in arr :
+        if k < require :
+            return answer
+        k -= cost
+        answer += 1
+    return answer
 
-    ans_list = []
-    dd = list(permutations(dungeons))
+def solution(k, dungeons):
+    permu = list(permutations(dungeons))
+    # print(permu)
     
-    for d in dd :
-        ans = 0
-        power = k
-        
-        for need, consume in d :
-            if need > power :
-                break
-            else :
-                power -= consume
-                ans += 1
-        
-        ans_list.append(ans)
-        
+    ans_list = []
+    for arr in permu :
+        answer = Explore(k, arr)
+        ans_list.append(answer)
     
     return max(ans_list)
