@@ -1,11 +1,12 @@
 def solution(numbers, target):
-    answer = [0]
+    n = numbers.pop(0)
+    answer = [-n, n]
     
-    for n in numbers :
+    for i in range(len(numbers)) :
         temp = []
-        for ans in answer :
-            temp.append(ans + n)
-            temp.append(ans - n)
+        for a in answer :
+            temp.append(a+numbers[i])
+            temp.append(a-numbers[i])
         answer = temp
     
     return answer.count(target)
