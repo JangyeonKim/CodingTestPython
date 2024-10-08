@@ -1,22 +1,24 @@
 from collections import deque
 
-def check(c, arr) :
-    for a in arr :
-        if a[0] > c[0] :
+def isProcess(q, queue) :
+    for qq in queue :
+        if qq[0] > q[0] :
             return False
     return True
 
 def solution(priorities, location):
     answer = 0
-    pri = [[p, x] for x, p in enumerate(priorities)]
     
-    while pri :        
-        cur = pri.pop(0)
-        if not check(cur, pri) :
-            pri.append(cur)
+    queue = deque([])
+    
+    for idx, p in enumerate(priorities) :
+        queue.append([p, idx])
+        
+    while True :
+        q = queue.popleft()
+        if not isProcess(q, queue) :
+            queue.append(q)
         else :
             answer += 1
-            if cur[1] == location :
+            if q[1] == location :
                 return answer
-            
-        
