@@ -1,14 +1,15 @@
 def solution(clothes):
-    answer = 1
+    c_dict = dict()
     
-    c_dict = {}
-    for v, k in clothes :
-        if k not in c_dict.keys() :
-            c_dict[k] = [v]
+    for item, cate in clothes :
+        if cate not in c_dict.keys() :
+            c_dict[cate] = [item]
         else :
-            c_dict[k].append(v)
+            c_dict[cate].append(item)
+            
+    item_list = [len(v)+1 for v in c_dict.values()]
+    answer = 1
+    for i in item_list :
+        answer *= i 
     
-    for k, v in c_dict.items() :
-        answer *= (len(v)+1)
-    
-    return answer -1
+    return answer - 1
