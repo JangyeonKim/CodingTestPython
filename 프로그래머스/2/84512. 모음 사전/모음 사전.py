@@ -1,16 +1,17 @@
 from itertools import product
 
 def solution(word):
-    answer = []
+    answer = 0
     
-    alpha = ['A', 'E', 'I', 'O', 'U']
+    word_list = ["A", "E", "I", "O", "U"]
+    total = []
     
-    for i in range(1, 6) :
-        for j in product(alpha, repeat=i) :
-            answer.append(list(j))
+    for i in range(1,6) :
+        wd = list(product(word_list, repeat = i))
+        wd = ["".join(w) for w in wd]
+        total += wd
+        
+    total.sort()
+    answer = total.index(word)+1
     
-    answer.sort()
-    
-    for idx, a in enumerate(answer) :
-        if "".join(a) == word :
-            return idx+1
+    return answer
