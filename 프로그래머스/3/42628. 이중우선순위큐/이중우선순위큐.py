@@ -1,19 +1,22 @@
+from collections import deque
+
 def solution(operations):
     answer = []
     
-    for oper in operations :
-        op, num = oper.split()
+    oper = deque(operations)
+    queue = []
+    
+    while oper :
+        op, er = oper.popleft().split()
         
-        if op == 'I' :
-            answer.append(int(num))
-            answer.sort()
-        else :
-            if answer and num == "1" :
-                answer.pop()
-            elif answer and num == "-1" :
-                answer.pop(0)
-                
-    if not answer :
+        if op == "I" :
+            queue.append(int(er))
+        elif queue and op == "D" and er == "-1" :
+            queue.remove(min(queue))
+        elif queue and op == "D" and er == "1" :
+            queue.remove(max(queue))
+            
+    if not queue :
         return [0, 0]
     else :
-        return [max(answer), min(answer)]
+        return [max(queue), min(queue)]
