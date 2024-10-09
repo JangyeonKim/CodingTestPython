@@ -1,19 +1,21 @@
-def dfs(visited, com, computers) :
-    for c in range(len(computers[com])) :
-        if computers[com][c] == 1 and not visited[c] :
-            visited[c] = True
-            dfs(visited, c, computers)
-    
+from collections import deque
 
 def solution(n, computers):
     answer = 0
     
-    visited = [False] * n
+    visit = [False] * n
+    queue = deque([])
     
-    for com in range(n) :
-        if visited[com] == False :
-            visited[com] = True
+    for i in range(n) :
+        if not visit[i] :
+            queue.append(i)
             answer += 1
-            dfs(visited, com, computers)
+            while queue :
+                q = queue.popleft()
+                visit[q] = True
+                
+                for com in range(len(computers[q])) :
+                    if computers[q][com] == 1 and not visit[com] :
+                        queue.append(com)
     
     return answer
