@@ -1,30 +1,31 @@
 from collections import deque
 
-def bfs(start, maps) :
-    x, y = start.popleft()
+def bfs(queue, maps) :
+    mv_x = [0, 0, -1, 1]
+    mv_y = [-1, 1, 0, 0]
     
-    move_x = [-1, 1, 0, 0]
-    move_y = [0, 0, -1, 1]
-    
-    for i in range(4) :
-        x_ = x + move_x[i]
-        y_ = y + move_y[i]
+    while queue :
+        y, x = queue.popleft()
         
-        if x_ < 0 or y_ < 0 or x_ >= len(maps) or y_ >= len(maps[0]) :
-            pass
-        else :
-            if maps[x_][y_] == 1 :
-                maps[x_][y_] = maps[x][y] + 1
-                start.append([x_, y_])
-    
+        for i in range(4) :
+            x_ = x + mv_x[i]
+            y_ = y + mv_y[i]
+            
+            if x_ < 0 or y_ < 0 or x_ >= len(maps[0]) or y_ >= len(maps) :
+                continue
+            else :
+                if maps[y_][x_] == 1 :
+                    maps[y_][x_] = maps[y][x] + 1
+                    queue.append([y_, x_])
+    return maps
+
 
 def solution(maps):
-    start = deque([[0, 0]])
+    queue = deque([[0, 0]])
     
-    while start :
-        bfs(start, maps)
+    maps = bfs(queue, maps)
     
-    if maps[-1][-1] == 1 :
+    if maps[-1][-1] == 1: 
         return -1
     else :
         return maps[-1][-1]
