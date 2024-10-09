@@ -3,17 +3,17 @@ from collections import Counter
 def solution(topping):
     answer = 0
     
-    roll = Counter(topping)
-    cut = set()
+    top_dict = Counter(topping)
     
-    for t in topping :
-        roll[t] -= 1
-        if roll[t] == 0 :
-            del(roll[t])
+    vs_set = set()
+    for top in topping :
+        top_dict[top] -= 1
+        vs_set.add(top)
         
-        cut.add(t)
-    
-        if len(roll) == len(cut) :
+        if top_dict[top] == 0 :
+            del(top_dict[top])
+            
+        if len(top_dict) == len(vs_set) :
             answer += 1
-    
+        
     return answer
