@@ -1,24 +1,22 @@
-import heapq
+from heapq import heapify, heappush, heappop
 
 def solution(n, works):
     answer = 0
+    heap = []
     
-    max_heap = []
     for w in works :
-        heapq.heappush(max_heap, (-w, w))
-        
+        heappush(heap, [-w, w])
+    
     for _ in range(n) :
-        val = heapq.heappop(max_heap)[1]
-        if val == 0 :
+        h = heappop(heap)
+        
+        if h[1] == 0 :
             return 0
         else :
-            val -= 1
-            heapq.heappush(max_heap, (-val, val))
+            val = h[1]-1
+            heappush(heap, [-val, val])
     
-    # print(max_heap)
-    
-    while max_heap :
-        ans = heapq.heappop(max_heap)[1]
-        answer += ans ** 2
+    for _ in range(len(heap)) :
+        answer += heappop(heap)[1] ** 2
     
     return answer
