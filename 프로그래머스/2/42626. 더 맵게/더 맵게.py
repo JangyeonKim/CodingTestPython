@@ -2,17 +2,19 @@ from heapq import heapify, heappush, heappop
 
 def solution(scoville, K):
     answer = 0
-    
     heapify(scoville)
     
-    while scoville :
+    while len(scoville) > 1 :
         first = heappop(scoville)
         if first >= K :
             return answer
-        else :
-            if not scoville :
-                return -1
-            second = heappop(scoville)
-            mix = first + (second * 2)
-            heappush(scoville, mix)
-            answer += 1
+        
+        second = heappop(scoville)
+        
+        heappush(scoville, first + (second * 2))
+        answer += 1
+        
+    if scoville[0] >= K :
+        return answer
+    else :
+        return -1
