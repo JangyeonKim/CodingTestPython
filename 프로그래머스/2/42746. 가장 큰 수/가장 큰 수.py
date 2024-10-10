@@ -1,10 +1,9 @@
 def solution(numbers):
+    
+    numbers.sort(key = lambda x : str(x)*3, reverse = True)
+    
     answer = ''
-    
-    numbers.sort(key = lambda x : str(x) * 3, reverse=True)
-    
-    for n in numbers :
-        answer += str(n)
-    
+    for num in numbers :
+        answer += str(num)
     
     return str(int(answer))
