@@ -1,35 +1,27 @@
-from itertools import combinations, permutations
+from itertools import permutations
 
-def isPrime(n) :
-    if n < 2 : 
+def isPrime(num) :
+    if num < 2 :
         return False
-    else :
-        for i in range(2, int((n**0.5))+1) :
-            if n%i == 0 :
-                return False
-        
-        return True
+    
+    for i in range(2, int(num ** 0.5) + 1) :
+        if num % i == 0 :
+            return False
+    return True
 
 def solution(numbers):
     answer = 0
+    numbers = list(numbers)
     
-    all_ = []
+    candidate = set()
     
     for i in range(1, len(numbers)+1) :
-        all_ += list(permutations(numbers, i))
+        possible = list(permutations(numbers, i))
+        for p in possible :
+            candidate.add(int("".join(p)))
     
-    # print(all_)
-    
-    all_n = []
-    for a in all_ :
-        all_n.append(int("".join(a)))
-        
-    # print(all_n)
-    all_n = set(all_n)
-    # print(all_n)
-    
-    for n in all_n :
-        if isPrime(n) :
-            answer+=1
+    for c in candidate :
+        if isPrime(c) :
+            answer += 1
     
     return answer
