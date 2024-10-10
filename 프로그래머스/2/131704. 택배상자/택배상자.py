@@ -1,12 +1,28 @@
+from collections import deque
+
 def solution(order):
+    answer = 0
+    
+    n = len(order)
+    queue = deque(order)
     stack = []
-    length = len(order)
-    index = 0
-    for num in range(1, length + 1):
-        stack.append(num)
+    
+    box = 1
+    while queue :
+        target = queue.popleft()
+        
+        while True :
+            if stack and stack[-1] == target :
+                break
+            stack.append(box)
+            box += 1
+            if box > n :
+                break
+        
+        if stack[-1] != target :
+            return answer
+        
+        stack.pop()
+        answer += 1
 
-        while stack and stack[-1] == order[index]:
-            stack.pop()
-            index += 1
-
-    return index
+    return answer
