@@ -1,21 +1,25 @@
 from collections import deque
 
+def bfs(queue, x, n) :
+    while queue :
+        q, cnt = queue.popleft()
+        if q == x :
+            return cnt
+        
+        if q-n >= x :
+            queue.append([q-n, cnt+1])
+        if q%3 == 0 and q/3 >= x :
+            queue.append([q/3, cnt+1])
+        if q%2 == 0 and q/2 >= x :
+            queue.append([q/2, cnt+1])
+        
+    return -1
+
 def solution(x, y, n):
     answer = 0
     
-    queue = deque([[y, answer]])
+    queue = deque([[y, 0]])
     
-    while queue :
-        cur_value, cnt = queue.popleft()
-        if cur_value <= 0:
-            break
-        if cur_value == x :
-            return cnt
-        
-        if cur_value % 2 == 0 :
-            queue.append([cur_value//2, cnt+1])
-        if cur_value % 3 == 0 :
-            queue.append([cur_value//3, cnt+1])
-        queue.append([cur_value-n, cnt+1])        
+    answer = bfs(queue, x, n)
     
-    return -1
+    return answer
