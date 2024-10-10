@@ -1,10 +1,10 @@
 def solution(n):
-    if n <= 2:
+    if n < 2 :
         return n
     
-    num = [1, 2] + [0] * (n-2)
+    answer = [1, 2] + [0] * (n-2)
     
-    for i in range(2, n) :
-        num[i] = (num[i-1] + num[i-2])% 1000000007
+    for i in range(2, len(answer)) :
+        answer[i] = (answer[i-1] + answer[i-2]) % 1000000007
     
-    return num[-1] 
+    return answer[-1] 
