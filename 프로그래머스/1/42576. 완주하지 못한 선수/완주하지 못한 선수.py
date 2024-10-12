@@ -1,21 +1,12 @@
-def make_dict(p_list) :
-    return_dict = {}
-    
-    for p in p_list :
-        if p not in return_dict.keys() :
-            return_dict[p] = 0
-        else :
-            return_dict[p] += 1
-            
-    return return_dict
+from collections import Counter
 
 def solution(participant, completion):
-    p_dict = make_dict(participant)
+    counter = Counter(participant)
     
     for c in completion :
-        p_dict[c] -= 1
-        
-    for key, value in p_dict.items() :
-        if value == 0 :
-            return key
-  
+        counter[c] -= 1
+        if counter[c] == 0 :
+            counter.pop(c)
+    
+    answer = [k for k in counter.keys()]
+    return answer[0]
