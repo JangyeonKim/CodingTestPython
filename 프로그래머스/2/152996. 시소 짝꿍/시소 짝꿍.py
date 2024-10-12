@@ -1,21 +1,21 @@
 from collections import Counter
 
-def solution(weights):
+def solution(weights) :
     answer = 0
     counter = Counter(weights)
+    
     for k, v in counter.items() :
-        if v >= 2 :
-            answer += v*(v-1)//2 # 몸무개가 같은 v명중에 2명 짝꿍 경우의수. cC2
+        if counter[k] >= 2 : # counter[k]개 중에서 2개를 뽑는 경우의 수
+            answer += (counter[k] * (counter[k] - 1)) /  2
+        
+    weight = set(weights)
     
-    
-    weights = set(weights) # 이제 몸무게가 다른 사람들끼리 경우 생각
-    
-    for w in weights : # 짝꿍 경우의 수 : 2/3, 2/4, 3/4
-        if w*2/3 in weights :
-            answer += counter[w] * counter[w*2/3]
-        if w*2/4 in weights :
-            answer += counter[w] * counter[w*2/4]
-        if w*3/4 in weights :
-            answer += counter[w] * counter[w*3/4]
-    
+    for wei in weight :
+        if wei * 2/4 in weight :
+            answer += counter[wei] * counter[wei * 2/4]
+        if wei * 3/4 in weight :
+            answer += counter[wei] * counter[wei * 3/4]
+        if wei * 2/3 in weight :
+            answer += counter[wei] * counter[wei * 2/3]
+            
     return answer
