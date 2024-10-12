@@ -1,20 +1,28 @@
 from collections import deque
-def solution(tickets):
+
+def bfs(queue, tickets) :
     answer = []
-    q = deque()
-    q.append(("ICN",["ICN"], []))
     
-    while q:
-        airport, path, used = q.popleft()
-
-        if len(used) == len(tickets):
-            answer.append(path)
+    while queue :
+        start, route, check = queue.popleft()
         
-        for idx, ticket in enumerate(tickets):
-            if ticket[0] == airport and not idx in used:
-                q.append((ticket[1], path+[ticket[1]], used+[idx]))
-                
-    
-    answer.sort()
+        if len(route) == len(tickets) + 1:
+            answer.append(route)
+        
+        for idx, ticket in enumerate(tickets) :
+            if ticket[0] == start and not check[idx] :
+                new_check = check.copy()
+                new_check[idx] = True
+                queue.append([ticket[1], route+[ticket[1]], new_check])
+        
+    return answer
 
+def solution(tickets) :
+    route = ["ICN"]
+    check = [False] * len(tickets)
+    queue = deque([["ICN", route, check]])
+    
+    answer = bfs(queue, tickets)
+    answer.sort()
     return answer[0]
+    
