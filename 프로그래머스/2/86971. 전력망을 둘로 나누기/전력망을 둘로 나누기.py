@@ -1,36 +1,36 @@
 from collections import deque
 
-def solution(n, wires):
-    res = 0
+def bfs(start, link) :
+    visit = [False] * len(link)
+    queue = deque([start])
+    cnt = 0
+    while queue :
+        q = queue.popleft()
+        if not visit[q] :
+            cnt += 1
+            visit[q] = True
+            for l in link[q] :
+                if not visit[l] :
+                    queue.append(l)
+    return cnt
     
-    graph = [[] for _ in range(n+1)] # 1번 부터 n번 노드, 0번은 비어있게됨
+
+def solution(n, wires) :
+    link = [[] for _ in range(n+1)]
     
-    for a, b in wires : # 모든 연결 정보를 그래프에 기록
-        graph[a].append(b)
-        graph[b].append(a)
-    
-    def bfs(start) : # 시작점을 기준으로 몇개의 노드가 연결되어 있는지 갯수 return
-        visited = [False] * (n+1)
-        queue = deque([start])
-        visited[start] = True
-        cnt = 1
-        while queue :
-            q = queue.popleft()
-            for i in graph[q] :
-                if not visited[i] :
-                    visited[i] = True
-                    queue.append(i)
-                    cnt += 1
-        return cnt
-    
-    res = n 
-    for a, b in wires : # a와 b의 연결을 순차적으로 끊어가며 최소 개수 차이 갱신
-        graph[a].remove(b)  
-        graph[b].remove(a)
+    for a, b in wires :
+        link[a].append(b)
+        link[b].append(a)
         
-        res = min(abs(bfs(a) - bfs(b)), res)
-        
-        graph[a].append(b)
-        graph[b].append(a)
+    answer = n
     
-    return res
+    for a, b in wires :
+        link[a].remove(b)
+        link[b].remove(a)
+        
+        answer = min(answer, abs(bfs(a, link) - bfs(b, link)))
+        
+        link[a].append(b)
+        link[b].append(a)
+    
+    return answer
