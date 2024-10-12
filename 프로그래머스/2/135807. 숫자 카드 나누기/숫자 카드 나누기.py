@@ -1,38 +1,35 @@
-def gcd(a, b) :
-    A = max(a, b)
-    B = min(a,b)
+def GCD(A, B) :
+    a = max(A, B)
+    b = min(A, B)
     
-    if A%B == 0 :
-        return B
+    if a % b == 0 :
+        return b
     else :
-        return gcd(B, A%B)
-    
-def multigcd(arr) :
+        return GCD(b, a % b)
+
+def arrGCD(array) :
+    arr = array.copy()
     while len(arr) > 1 :
-        GCD = gcd(arr.pop(), arr.pop())
-                  
-        if GCD == 1 :
+        gcd = GCD(arr.pop(), arr.pop())
+        if gcd == 1:
             return 1
-        arr.append(GCD)
-        
+        arr.append(gcd)
     return arr[0]
 
-def condition(n,array) :
-    if (n == 1) :
-        return 0
-    for a in array :
-        if( a % n == 0) :
-            return 0
-    return 1
+def condition(gcd, arr) :
+    if gcd == 1:
+        return False
+    else :
+        for a in arr :
+            if a % gcd == 0 :
+                return False
+    return True
 
-def solution(arrayA, arrayB):
-    Agcd = multigcd(arrayA.copy())
-    Bgcd = multigcd(arrayB.copy())
+def solution(arrayA, arrayB) :
+    gcdA = arrGCD(arrayA)
+    gcdB = arrGCD(arrayB)
     
-    A = Agcd if condition(Agcd, arrayB) else 0
-    B = Bgcd if condition(Bgcd, arrayA) else 0
+    a = gcdA if condition(gcdA, arrayB) else 0
+    b = gcdB if condition(gcdB, arrayA) else 0
     
-    answer = max(A,B)
-    return answer
-    
-    
+    return max(a, b)
