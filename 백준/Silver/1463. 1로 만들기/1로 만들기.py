@@ -11,7 +11,7 @@ queue = deque([(x, cnt)])
 while queue :
     xx, c = queue.popleft()
 
-    if xx == 1 :
+    if xx == target :
         print(c)
         break
     
