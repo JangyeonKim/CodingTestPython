@@ -17,8 +17,6 @@ def dfs(x, y) :
             dfs(x, y+1)
             dfs(x-1, y)
             dfs(x+1, y)
-            return True
-        return False
 
 for t in range(T) :
     M, N, K = map(int, input().split())
@@ -32,7 +30,8 @@ for t in range(T) :
     cnt = 0
     for yy in range(N) :
         for xx in range(M) :
-            if dfs(xx, yy) :
-                cnt += 1
+            if ground[yy][xx] == 1:
+                dfs(xx, yy)
+                cnt +=1
 
     print(cnt)
